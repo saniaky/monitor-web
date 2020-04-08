@@ -1,0 +1,48 @@
+# Documentation
+# https://docs.gitlab.com/ce/ci/variables/README.html
+
+# Predefined environment variables reference
+# https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+
+# Cloudflare Cache Purge
+# https://api.cloudflare.com/#zone-purge-all-files
+
+image: node:13.3
+
+stages:
+  - test
+  - build
+  - deploy
+
+lint:
+  stage: test
+  script:
+    - npm i
+    - npm run lint
+
+build:
+  stage: build
+  script:
+    - npm ci --only=production
+    - npm run build
+    - echo $CI_COMMIT_SHORT_SHA > ./build/version.txt
+  artifacts:
+    paths:
+      - build
+
+deploy_staging:
+  stage: deploy
+  image: docker.io/saniaky/awscli:1.17.10
+  environment:
+    name: staging
+    url: https://staging.site.net
+  script:
+    - echo "Deploy to staging server (bucket ${AWS_BUCKET})"
+    - aws s3 sync build s3://${AWS_BUCKET}/ --region us-east-1 --acl public-read --delete
+    - >
+      curl -X POST "https://api.cloudflare.com/client/v4/zones/${CLOUDFLARE_ZONE}/purge_cache" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer ${CLOUDFLARE_TOKEN}" \
+           --data '{"purge_everything":true}'
+  only:
+    - master

@@ -1,7 +1,6 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
@@ -15,6 +14,7 @@ import { toast } from 'react-toastify'
 import { getErrorMsg } from '../../utils/errors'
 import { useAuth } from '../../hooks/useAuth'
 import { Field, Form, Formik } from 'formik'
+import { TextField } from 'formik-material-ui'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const initialValues = {
-  firstName: 'Alex',
+  firstName: 'John',
   lastName: 'Doe',
-  email: 'saniaky@gmail.com',
-  password: '123456'
+  email: '',
+  password: ''
 }
 
 export default function SignUp () {

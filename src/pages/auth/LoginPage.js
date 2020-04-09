@@ -1,7 +1,6 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
@@ -18,6 +17,7 @@ import { toast } from 'react-toastify'
 import { useAuth } from '../../hooks/useAuth'
 import { getErrorMsg } from '../../utils/errors'
 import { useLocation } from 'react-router'
+import { TextField } from 'formik-material-ui'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +49,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+const initialValues = {
+  email: 'user@email.com',
+  password: '123456'
+}
+
 export default () => {
   const classes = useStyles()
   const auth = useAuth()
@@ -60,6 +65,7 @@ export default () => {
   }
 
   const login = (values, { setSubmitting }) => {
+    console.log(values)
     const { email, password } = values
     auth.login(email, password)
       .then(() => {
@@ -82,7 +88,7 @@ export default () => {
           <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <Formik onSubmit={login} initialValues={{ email: 'saniaky@gmail.com', password: '123456' }}>
+          <Formik onSubmit={login} initialValues={initialValues}>
             {({ isSubmitting }) => (
               <Form className={classes.form}>
                 <Field
@@ -106,7 +112,6 @@ export default () => {
                   required
                   variant='outlined'
                   fullWidth
-                  autoFocus
                   autoComplete='current-password'
                 />
                 <FormControlLabel

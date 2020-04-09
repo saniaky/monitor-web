@@ -1,11 +1,8 @@
-# Monitor Web
+# ✋ Monitor Web
 
-## Overview
-Web Database Project (Loyola COMP-453)  
-http://cnaiman.com/COMP353-453/Project/ProjectOverview.html
-
-Git Repository  
-https://gitlab.com/loyola-monitor
+## 👇 Overview
+- [🔗 Project requirements - Loyola COMP-453](http://cnaiman.com/COMP353-453/Project/ProjectOverview.html)
+- [🔗 GitLab Repository](https://gitlab.com/loyola-monitor)
 
 ## 📝 Features
 Users:
@@ -17,7 +14,6 @@ Functionality:
 - For users
 - For guests
 - For admins
-
 
 ## 🔧 Built with
 - [ReactJS](https://reactjs.org/)

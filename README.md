@@ -7,7 +7,7 @@ http://cnaiman.com/COMP353-453/Project/ProjectOverview.html
 Git Repository  
 https://gitlab.com/loyola-monitor
 
-## Features
+## 📝 Features
 Users:
 - Guest - people who want to 
 - User - people who want to monitor their services
@@ -19,7 +19,7 @@ Functionality:
 - For admins
 
 
-## Built with
+## 🔧 Built with
 - [ReactJS](https://reactjs.org/)
 - [React Router](https://reacttraining.com/react-router/)
 - [Material UI](https://material-ui.com/)

@@ -2,12 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
+import DesignProvider from './DesignProvider'
+import { ProvideAuth } from './hooks/useAuth'
+import './config/toast'
 
 const root = document.getElementById('root')
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <DesignProvider>
+      <ProvideAuth>
+        <App />
+      </ProvideAuth>
+    </DesignProvider>
   </React.StrictMode>,
   root
 )

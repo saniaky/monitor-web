@@ -1,32 +1,49 @@
-import api from '../config/api'
 import useLocalStorage from './useLocalStorage'
+import api from '../config/api'
+import { useEffect, useState } from 'react'
 
-const USER_KEY = 'picpad_user'
+const TOKEN_KEY = 'monitor_token'
 
 // Provider hook that creates auth object and handles state
 export default function useProvideAuth () {
-  const [user, setUser] = useLocalStorage(USER_KEY, null)
+  const [user, setUser] = useState(null)
+  const [token, setToken] = useLocalStorage(TOKEN_KEY, null)
 
   // Subscribe to user on mount
   // Because this sets state in the callback it will cause any ...
   // ... component that utilizes this hook to re-render with the ...
   // ... latest auth object.
-  // useEffect(() => {
-  //   const savedUser = _getUser()
-  //   if (savedUser) {
-  //     setUser(savedUser)
-  //   } else {
-  //     setUser(false)
-  //   }
-  // }, [])
-
-  const login = ({ email, password, rememberMe }) => {
-    const body = { email, password }
-    return api.post('/auth/login', body)
-      .then(res => {
-        setUser(res.data)
-        return res
+  useEffect(() => {
+    if (!token) {
+      setUser(false)
+      return
+    }
+    console.log('useProvideAuth hook')
+    api.defaults.headers.common.Authorization = `Bearer ${token}`
+    api.get('/me')
+      .then((userProfile) => {
+        setUser(userProfile)
       })
+      .catch(() => {
+        setUser(false)
+      })
+  }, [token])
+
+  const createAccount = (data) => {
+    return api.post('/register', data)
+      .then(res => res.data)
+  }
+
+  const login = (email, password, rememberMe) => {
+    return api.post('/login', { email, password })
+      .then(res => {
+        setToken(res.data.accessToken)
+      })
+  }
+
+  const logout = () => {
+    setToken(null)
+    return api.post('/logout')
   }
 
   const socialLogin = (provider) => {
@@ -37,21 +54,8 @@ export default function useProvideAuth () {
     setUser(user)
   }
 
-  const createAccount = (data) => {
-    return api.post('/auth/create-account', data)
-      .then(res => res.data)
-  }
-
-  const logout = () => {
-    setUser(false)
-    return api.post('/auth/logout')
-      .then(res => {
-        return res
-      })
-  }
-
   const sendPasswordResetEmail = (email) => {
-    return api.post('/auth/forgot', { email })
+    return api.post('/forgot', { email })
       .then(res => res.data)
       .then(() => {
         return true
@@ -83,9 +87,9 @@ export default function useProvideAuth () {
     isAuthenticated: user !== false,
     login,
     logout,
+    createAccount,
     socialLogin,
     socialLoginCallback,
-    createAccount,
     sendPasswordResetEmail,
     resetPassword,
     confirmAccount,

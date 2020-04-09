@@ -1,9 +1,15 @@
 import axios from 'axios'
+import applyConverters from 'axios-case-converter'
 
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL
-  // withCredentials: true // Pass cookies with requests in axios,
-  // headers: {'X-Custom-Header': 'foobar'},
+/*
+    Axios transformer/interceptor that converts snake_case/camelCase
+    https://www.npmjs.com/package/axios-case-converter
+
+*/
+
+const axiosClient = axios.create({
+  baseURL: process.env.REACT_APP_API_URL || '/api'
+  // headers: { Authorization: `Bearer ${token}` }
 })
 
-export default api
+export default applyConverters(axiosClient)

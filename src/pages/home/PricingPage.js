@@ -20,18 +20,6 @@ const useStyles = makeStyles((theme) => ({
       listStyle: 'none'
     }
   },
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`
-  },
-  toolbar: {
-    flexWrap: 'wrap'
-  },
-  toolbarTitle: {
-    flexGrow: 1
-  },
-  link: {
-    margin: theme.spacing(1, 1.5)
-  },
   heroContent: {
     padding: theme.spacing(8, 0, 6)
   },
@@ -44,16 +32,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'baseline',
     marginBottom: theme.spacing(2)
-  },
-  footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(8),
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing(6),
-      paddingBottom: theme.spacing(6)
-    }
   }
 }))
 
@@ -98,7 +76,7 @@ export default function PricingPage () {
   return (
     <>
       <Header />
-      {/* Hero unit */}
+
       <Container maxWidth='sm' component='main' className={classes.heroContent}>
         <Typography component='h1' variant='h2' align='center' color='textPrimary' gutterBottom>
           Pricing
@@ -108,7 +86,7 @@ export default function PricingPage () {
           It&apos;s built with default Material-UI components with little customization.
         </Typography>
       </Container>
-      {/* End hero unit */}
+
       <Container maxWidth='md' component='main'>
         <Grid container spacing={5} alignItems='flex-end'>
           {tiers.map((tier) => (
@@ -150,9 +128,7 @@ export default function PricingPage () {
           ))}
         </Grid>
       </Container>
-      {/* Footer */}
       <Footer />
-      {/* End footer */}
     </>
   )
 }

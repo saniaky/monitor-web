@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const initialValues = {
-  email: 'user@email.com',
+  email: 'john@email.com',
   password: '123456'
 }
 

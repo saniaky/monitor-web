@@ -46,7 +46,7 @@ export default () => {
       <Button
         to='/login'
         component={RouterLink}
-        color='primary' variant='outlined'
+        // color='primary' variant='outlined'
       >
         Login
       </Button>
@@ -58,13 +58,13 @@ export default () => {
       <Button
         to='/dashboard'
         component={RouterLink}
-        color='primary' variant='outlined' className={classes.link}
+        // color='primary' variant='outlined' className={classes.link}
       >
         Account
       </Button>
       <Button
         onClick={() => auth.logout()}
-        color='primary' variant='outlined'
+        // color='primary' variant='outlined'
       >
         Logout
       </Button>

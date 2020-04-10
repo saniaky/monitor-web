@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
 const initialValues = {
   firstName: 'John',
   lastName: 'Doe',
-  email: '',
-  password: ''
+  email: 'john@email.com',
+  password: '123456'
 }
 
 export default function SignUp () {

@@ -16,9 +16,11 @@ export default function useProvideAuth () {
   useEffect(() => {
     if (!token) {
       setUser(false)
+      console.log('Resetting token.')
+      api.defaults.headers.common.Authorization = ''
       return
     }
-    console.log('useProvideAuth hook')
+    console.log('Setting token.')
     api.defaults.headers.common.Authorization = `Bearer ${token}`
     api.get('/me')
       .then((userProfile) => {

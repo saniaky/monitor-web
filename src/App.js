@@ -6,6 +6,7 @@ import NotFoundPage from './pages/not-found/NotFoundPage'
 import DashboardPage from './pages/dashboard/DashboardPage'
 import LoginPage from './pages/auth/LoginPage'
 import SignupPage from './pages/auth/SignupPage'
+import PrivateRoute from './components/PrivateRoute'
 
 function App () {
   return (
@@ -13,7 +14,7 @@ function App () {
       <Switch>
         <Route path='/' exact component={HomePage} />
         <Route path='/pricing' exact component={PricingPage} />
-        <Route path='/dashboard' exact component={DashboardPage} />
+        <PrivateRoute path='/dashboard' exact component={DashboardPage} />
         <Route path='/login' exact component={LoginPage} />
         <Route path='/signup' exact component={SignupPage} />
         <Route path='/forgot-password' exact component={SignupPage} />

@@ -1,21 +1,24 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import DesignProvider from './DesignProvider'
 import { ProvideAuth } from './hooks/useAuth'
+import './config/pace'
 import './config/toast'
 
 const root = document.getElementById('root')
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <DesignProvider>
       <ProvideAuth>
-        <App />
+        <Suspense fallback={<div>Loading...</div>}>
+          <App />
+        </Suspense>
       </ProvideAuth>
     </DesignProvider>
-  </React.StrictMode>,
+  </>,
   root
 )
 

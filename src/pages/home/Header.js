@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -7,6 +7,9 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -40,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const classes = useStyles()
   const auth = useAuth()
+  const history = useHistory()
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const guestLinks = (
     <>
@@ -53,21 +58,40 @@ export default () => {
     </>
   )
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const dashboard = () => {
+    history.push('/dashboard')
+    handleClose()
+  }
+
+  const logout = () => {
+    history.push('/')
+    auth.logout()
+    handleClose()
+  }
+
   const accountButton = (
     <>
-      <Button
-        to='/dashboard'
-        component={RouterLink}
-        // color='primary' variant='outlined' className={classes.link}
-      >
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
         Account
       </Button>
-      <Button
-        onClick={() => auth.logout()}
-        // color='primary' variant='outlined'
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
       >
-        Logout
-      </Button>
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={dashboard}>Dashboard</MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
+      </Menu>
     </>
   )
 

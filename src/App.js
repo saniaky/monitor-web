@@ -1,23 +1,27 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import HomePage from './pages/home/HomePage'
-import PricingPage from './pages/home/PricingPage'
-import NotFoundPage from './pages/not-found/NotFoundPage'
-import DashboardPage from './pages/dashboard/DashboardPage'
-import LoginPage from './pages/auth/LoginPage'
-import SignupPage from './pages/auth/SignupPage'
-import PrivateRoute from './components/PrivateRoute'
+
+const HomePage = lazy(() => import( './pages/home/HomePage'))
+const PricingPage = lazy(() => import( './pages/home/PricingPage'))
+const NotFoundPage = lazy(() => import( './pages/not-found/NotFoundPage'))
+const DashboardPage = lazy(() => import( './pages/dashboard/DashboardPage'))
+const LoginPage = lazy(() => import( './pages/auth/LoginPage'))
+const SignupPage = lazy(() => import( './pages/auth/SignupPage'))
+const PrivateRoute = lazy(() => import( './components/PrivateRoute'))
+const ConfirmEmailPage = lazy(() => import( './pages/auth/ConfirmEmailPage'))
+const PublicRoute = lazy(() => import( './components/PublicRoute'))
 
 function App () {
   return (
     <Router>
       <Switch>
-        <Route path='/' exact component={HomePage} />
-        <Route path='/pricing' exact component={PricingPage} />
+        <PublicRoute path='/' exact component={HomePage} />
+        <PublicRoute path='/pricing' exact component={PricingPage} />
         <PrivateRoute path='/dashboard' exact component={DashboardPage} />
-        <Route path='/login' exact component={LoginPage} />
-        <Route path='/signup' exact component={SignupPage} />
-        <Route path='/forgot-password' exact component={SignupPage} />
+        <PublicRoute path='/login' exact component={LoginPage} />
+        <PublicRoute path='/signup' exact component={SignupPage} />
+        <PublicRoute path='/confirm-email' exact component={ConfirmEmailPage} />
+        <PublicRoute path='/forgot-password' exact component={SignupPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </Router>

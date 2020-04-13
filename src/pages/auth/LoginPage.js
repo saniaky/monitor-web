@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const initialValues = {
-  email: 'john@email.com',
-  password: '123456'
+  email: process.env.REACT_APP_DEFAULT_USER || '',
+  password: process.env.REACT_APP_DEFAULT_USER_PASSWORD || ''
 }
 
 export default () => {
@@ -65,7 +65,6 @@ export default () => {
   }
 
   const login = (values, { setSubmitting }) => {
-    console.log(values)
     const { email, password } = values
     auth.login(email, password)
       .then(() => {

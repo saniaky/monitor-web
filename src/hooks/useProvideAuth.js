@@ -72,13 +72,13 @@ export default function useProvideAuth () {
       })
   }
 
-  const confirmAccount = (email) => {
-    return api.post('/auth/verify', { email })
+  const confirmEmail = (token) => {
+    return api.post(`/auth/verify/${token}`)
       .then(res => res.data)
   }
 
-  const sendConfirmationCode = () => {
-    return api.get('/auth/verify/:token')
+  const resendConfirmationEmail = (email) => {
+    return api.get('/auth/resend', { email })
       .then(res => res.data)
   }
 
@@ -94,7 +94,7 @@ export default function useProvideAuth () {
     socialLoginCallback,
     sendPasswordResetEmail,
     resetPassword,
-    confirmAccount,
-    sendConfirmationCode
+    confirmEmail,
+    resendConfirmationEmail
   }
 }

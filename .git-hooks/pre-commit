@@ -12,9 +12,6 @@ function xargs-r() {
   fi
 }
 
-# Try to fix formatting first
-standard --fix
-
 git diff --name-only --cached --relative | grep '\.jsx\?$' | sed 's/[^[:alnum:]]/\\&/g' | xargs-r -E '' -t standard
 if [[ $? -ne 0 ]]; then
   echo 'JavaScript Standard Style errors were detected. Aborting commit.'

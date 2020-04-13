@@ -1,15 +1,15 @@
 import React, { lazy } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-const HomePage = lazy(() => import( './pages/home/HomePage'))
-const PricingPage = lazy(() => import( './pages/home/PricingPage'))
-const NotFoundPage = lazy(() => import( './pages/not-found/NotFoundPage'))
-const DashboardPage = lazy(() => import( './pages/dashboard/DashboardPage'))
-const LoginPage = lazy(() => import( './pages/auth/LoginPage'))
-const SignupPage = lazy(() => import( './pages/auth/SignupPage'))
-const PrivateRoute = lazy(() => import( './components/PrivateRoute'))
-const ConfirmEmailPage = lazy(() => import( './pages/auth/ConfirmEmailPage'))
-const PublicRoute = lazy(() => import( './components/PublicRoute'))
+const HomePage = lazy(() => import('./pages/home/HomePage'))
+const PricingPage = lazy(() => import('./pages/home/PricingPage'))
+const NotFoundPage = lazy(() => import('./pages/not-found/NotFoundPage'))
+const DashboardPage = lazy(() => import('./pages/dashboard/DashboardPage'))
+const LoginPage = lazy(() => import('./pages/auth/LoginPage'))
+const SignupPage = lazy(() => import('./pages/auth/SignupPage'))
+const PrivateRoute = lazy(() => import('./components/PrivateRoute'))
+const ConfirmEmailPage = lazy(() => import('./pages/auth/ConfirmEmailPage'))
+const PublicRoute = lazy(() => import('./components/PublicRoute'))
 
 function App () {
   return (

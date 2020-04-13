@@ -79,7 +79,7 @@ export default () => {
 
   const accountButton = (
     <>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
         Account
       </Button>
       <Menu

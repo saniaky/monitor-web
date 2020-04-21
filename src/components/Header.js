@@ -10,6 +10,7 @@ import { useAuth } from '../hooks/useAuth'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useHistory } from 'react-router'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -78,8 +79,8 @@ export default () => {
 
   const accountButton = (
     <>
-      <Button aria-controls='simple-menu' aria-haspopup='true' onClick={handleClick}>
-        Account
+      <Button onClick={handleClick} color='inherit'>
+        <AccountCircleIcon /> &nbsp; Account
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -95,13 +96,13 @@ export default () => {
   )
 
   return (
-    <AppBar position='static' color='default' elevation={0} className={classes.appBar}>
+    <AppBar position='static' elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant='h6' color='inherit' noWrap className={classes.toolbarTitle}>
-          <Link to='/' component={RouterLink}>Monitor</Link>
+        <Typography component='h1' variant='h6' color='inherit' noWrap className={classes.toolbarTitle}>
+          Monitor
         </Typography>
         <nav>
-          <Link variant='button' color='textPrimary' to='/pricing' component={RouterLink} className={classes.link}>
+          <Link variant='button' to='/pricing' component={RouterLink} className={classes.link}>
             Pricing
           </Link>
         </nav>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import Divider from '@material-ui/core/Divider'
@@ -13,7 +13,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import Typography from '@material-ui/core/Typography'
 import NewProjectDialog from './NewProjectDialog'
 import { useRouteMatch } from 'react-router'
-import api from '../config/api'
 import ReportProblemIcon from '@material-ui/icons/ReportProblem'
 import AppsIcon from '@material-ui/icons/Apps'
 import GroupIcon from '@material-ui/icons/Group'
@@ -21,8 +20,9 @@ import LanguageIcon from '@material-ui/icons/Language'
 import HistoryIcon from '@material-ui/icons/History'
 import { makeStyles } from '@material-ui/core/styles'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
-import useLocalStorage from '../hooks/useLocalStorage'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { useRouter } from '../hooks/useRouter'
+import { useProjectService } from '../pages/dashboard/ProjectContext'
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -35,19 +35,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const defaultProject = { projectId: null, name: 'Loading...' }
-
 export default ({ handleToggle }) => {
   const classes = useStyles()
   const router = useRouter()
   const { path } = useRouteMatch()
   const [newProjectOpen, setNewProjectOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
-  const [projects, setProjects] = useState([])
-  const [selectedProjectId, setSelectedProjectId] = useLocalStorage('m_current_project', null)
-
-  const projectId = router.query.pId
-  console.log(projectId)
+  const projectService = useProjectService()
+  const currentProject = projectService.project
+  const projects = projectService.projects
 
   const menu = [
     { text: 'Incidents', pathname: 'incidents', Icon: ReportProblemIcon },
@@ -58,27 +54,12 @@ export default ({ handleToggle }) => {
     { text: 'Activity log', pathname: 'activity-log', Icon: HistoryIcon }
   ]
 
-  useEffect(() => {
-    api.get('/me/projects')
-      .then((res) => {
-        setProjects(res.data)
-      })
-  }, [])
-
-  useEffect(() => {
-    if (selectedProjectId === null && projects.length > 0) {
-      setSelectedProjectId(projects[0].projectId)
-    }
-  })
-
-  const currentProject = projects.find(p => p.projectId === selectedProjectId) || defaultProject
-
   const handleProjectClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
   const handleProjectChangeClick = (event, projectId) => {
-    setSelectedProjectId(projectId)
+    projectService.changeProject(projectId)
     setAnchorEl(null)
   }
 
@@ -101,7 +82,7 @@ export default ({ handleToggle }) => {
       {projects.map(project => (
         <MenuItem
           key={project.projectId}
-          selected={project.projectId === selectedProjectId}
+          selected={project.projectId === currentProject.projectId}
           onClick={(e) => handleProjectChangeClick(e, project.projectId)}
         >
           {project.name}
@@ -147,6 +128,13 @@ export default ({ handleToggle }) => {
             <ListItemText primary={text} />
           </ListItem>
         ))}
+      </List>
+      <Divider />
+      <List>
+        <ListItem button onClick={() => router.push(`${path}/profile`)}>
+          <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+          <ListItemText primary='Profile' secondary='My personal profile' />
+        </ListItem>
       </List>
     </>
   )

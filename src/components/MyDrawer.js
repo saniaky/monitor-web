@@ -56,7 +56,7 @@ export default ({ drawerOpen, handleDrawerToggle }) => {
             })
           }}
         >
-          <DrawerMenu toggle={handleDrawerToggle} />
+          <DrawerMenu handleToggle={handleDrawerToggle} />
         </Drawer>
       </Hidden>
 
@@ -75,7 +75,7 @@ export default ({ drawerOpen, handleDrawerToggle }) => {
             })
           }}
         >
-          <DrawerMenu toggle={handleDrawerToggle} />
+          <DrawerMenu handleToggle={handleDrawerToggle} />
         </Drawer>
       </Hidden>
     </>

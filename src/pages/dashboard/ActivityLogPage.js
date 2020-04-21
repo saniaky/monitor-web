@@ -5,7 +5,7 @@ export default () => {
   const [members, setMembers] = useState([])
 
   useEffect(() => {
-    api.get('/me/projects/1/members')
+    api.get('/projects/1/members')
       .then((res) => {
         setMembers(res.data)
       })

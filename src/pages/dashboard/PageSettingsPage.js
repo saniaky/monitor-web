@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../config/api'
+import { useProjectService } from './ProjectContext'
 
 export default () => {
   const [settings, setSettings] = useState([])
+  const projectService = useProjectService()
+  const project = projectService.project
 
   useEffect(() => {
-    api.get('/me/projects/1/members')
+    api.get(`/projects/${project.projectId}/members`)
       .then((res) => {
         setSettings(res.data)
       })

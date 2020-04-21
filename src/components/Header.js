@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from 'react-router-dom'
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from '../hooks/useAuth'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useHistory } from 'react-router'
@@ -51,7 +51,6 @@ export default () => {
       <Button
         to='/login'
         component={RouterLink}
-        // color='primary' variant='outlined'
       >
         Login
       </Button>
@@ -102,14 +101,8 @@ export default () => {
           <Link to='/' component={RouterLink}>Monitor</Link>
         </Typography>
         <nav>
-          <Link variant='button' color='textPrimary' href='#' className={classes.link}>
-            Features
-          </Link>
           <Link variant='button' color='textPrimary' to='/pricing' component={RouterLink} className={classes.link}>
             Pricing
-          </Link>
-          <Link variant='button' color='textPrimary' href='#' className={classes.link}>
-            Support
           </Link>
         </nav>
         {auth.user ? accountButton : guestLinks}

@@ -34,9 +34,10 @@ export default function useProvideAuth () {
   const createAccount = (data) => {
     return api.post('/register', data)
       .then(res => res.data)
+      .then(() => login(data.email, data.password))
   }
 
-  const login = (email, password, rememberMe) => {
+  const login = (email, password) => {
     return api.post('/login', { email, password })
       .then(res => {
         setToken(res.data.accessToken)

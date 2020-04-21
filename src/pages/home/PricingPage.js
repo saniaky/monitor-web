@@ -9,8 +9,8 @@ import StarIcon from '@material-ui/icons/StarBorder'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import Header from './Header'
-import Footer from './Footer'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 
 const useStyles = makeStyles((theme) => ({
   '@global': {

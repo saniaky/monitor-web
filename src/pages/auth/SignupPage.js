@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
 const initialValues = {
   firstName: 'John',
   lastName: 'Doe',
-  email: 'john@email.com',
-  password: '123456'
+  email: process.env.REACT_APP_DEFAULT_USER || '',
+  password: process.env.REACT_APP_DEFAULT_USER_PASSWORD || ''
 }
 
 export default function SignUp () {

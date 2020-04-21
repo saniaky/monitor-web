@@ -1,11 +1,12 @@
 import React from 'react'
-import Footer from './Footer'
-import Header from './Header'
+import Footer from '../../components/Footer'
+import Header from '../../components/Header'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -30,40 +31,40 @@ export default () => {
         </Typography>
       </Container>
 
-      <Container>
-        Why to use?
-        - It's a scalable way of handling incidents communication
-        - Reduce incoming support requests during outages
-        - Increase trust of your customers
-      </Container>
+      <Container maxWidth='md'>
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <Typography variant='h5' color='textSecondary'>Why to use?</Typography>
+            <List>
+              <ListItem>It's a scalable way of handling incidents communication</ListItem>
+              <ListItem>Reduce incoming support requests during outages</ListItem>
+              <ListItem>Increase trust of your customers</ListItem>
+            </List>
+          </Grid>
 
-      <Container maxWidth='md' component='main'>
-        <Typography variant='h5' color='textSecondary' component='p'>
-          Features:
-        </Typography>
-        <List>
-          <ListItem>
-            Multiple Checks: HTTP(s), ping, port, heartbeat
-          </ListItem>
-          <ListItem>
-            Alerts: e-mail, Telegram, web-hooks
-          </ListItem>
-          <ListItem>
-            Flexible alerts settings: ignore
-          </ListItem>
-          <ListItem>
-            Metrics: uptime, downtime, response times
-          </ListItem>
-          <ListItem>
-            Maintenance
-          </ListItem>
-          <ListItem>
-            Public status page
-          </ListItem>
-          <ListItem>
-            Regions
-          </ListItem>
-        </List>
+          <Grid item xs={12} md={6}>
+            <Typography variant='h5' color='textSecondary'>
+              Features
+            </Typography>
+            <List>
+              <ListItem>
+                Alerts: e-mail, Telegram, web-hooks
+              </ListItem>
+              <ListItem>
+                Flexible alerts settings: ignore
+              </ListItem>
+              <ListItem>
+                Metrics: uptime, downtime, response times
+              </ListItem>
+              <ListItem>
+                Maintenance notifications
+              </ListItem>
+              <ListItem>
+                Public status page
+              </ListItem>
+            </List>
+          </Grid>
+        </Grid>
       </Container>
 
       <Footer />

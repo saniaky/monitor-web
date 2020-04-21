@@ -7,7 +7,6 @@ export default ({ component: Component, roles, ...rest }) => {
 
   return (
     <Route
-      exact
       {...rest}
       render={(props) => {
         // If auth is null (still fetching data)

@@ -5,7 +5,7 @@ import Link from '@material-ui/core/Link'
 import Box from '@material-ui/core/Box'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
-import CopyrightText from '../../components/CopyrightText'
+import CopyrightText from './CopyrightText'
 
 const footers = [
   {

@@ -27,6 +27,8 @@
     "yup": "^0.28.3"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
+    "babel-eslint": "^10.1.0",
     "standard": "^14.3.3"
   },
   "scripts": {
@@ -42,6 +44,7 @@
     "extends": "react-app"
   },
   "standard": {
+    "parser": "babel-eslint",
     "env": [
       "browser"
     ]

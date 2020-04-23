@@ -4,7 +4,6 @@ import { Redirect, Route, useRouteMatch } from 'react-router'
 import PrivateLayout from '../../components/PrivateLayout'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { ProvideProject } from './ProjectContext'
-import ProfilePage from './ProfilePage'
 
 const IncidentsPage = lazy(() => import('./IncidentsPage'))
 const MembersPage = lazy(() => import('./MembersPage'))
@@ -12,6 +11,8 @@ const ActivityLogPage = lazy(() => import('./ActivityLogPage'))
 const SubscribersPage = lazy(() => import('./SubscribersPage'))
 const ComponentsPage = lazy(() => import('./ComponentsPage'))
 const PageSettingsPage = lazy(() => import('./PageSettingsPage'))
+const ProfilePage = lazy(() => import('./ProfilePage'))
+const ProjectSettingsPage = lazy(() => import('./ProjectSettingsPage'))
 
 export default () => {
   const { url } = useRouteMatch()
@@ -27,6 +28,7 @@ export default () => {
             <Route path={`${url}/subscribers`} component={SubscribersPage} />
             <Route path={`${url}/page`} component={PageSettingsPage} />
             <Route path={`${url}/activity-log`} component={ActivityLogPage} />
+            <Route path={`${url}/settings`} component={ProjectSettingsPage} />
             <Route path={`${url}/profile`} component={ProfilePage} />
             <Redirect to={`${url}/incidents`} />
           </Switch>

@@ -18,7 +18,7 @@ export default () => {
       .finally(() => {
 
       })
-  }, [])
+  }, [project])
 
   return (
     <>

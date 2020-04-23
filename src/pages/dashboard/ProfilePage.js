@@ -23,6 +23,9 @@ export default () => {
       .then((res) => {
         setProfile(res.data)
       })
+      .catch(err => {
+        toast.error(err?.response?.data?.error || 'Cannot load user profile.')
+      })
   }, [])
 
   const handleSave = (values, { setSubmitting }) => {
@@ -31,8 +34,10 @@ export default () => {
       lastName: values.lastName,
       avatarUrl: values.avatarUrl
       // password: '',
-    }).then(res => {
+    }).then(() => {
       toast.success('Profile updated.')
+    }).catch(err => {
+      toast.error(JSON.stringify(err?.response?.data?.error) || 'Cannot update profile for now.')
     }).finally(() => setSubmitting(false))
   }
 
@@ -42,7 +47,7 @@ export default () => {
       <Formik onSubmit={handleSave} initialValues={profile} enableReinitialize>
         {({ isSubmitting }) => (
           <Form>
-            <Grid container xs={12} md={6} spacing={2}>
+            <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Field
                   component={TextField}
@@ -78,7 +83,6 @@ export default () => {
                   variant='outlined'
                   fullWidth
                   autoComplete='email'
-                  disabled
                 />
               </Grid>
             </Grid>

@@ -49,10 +49,7 @@ export default () => {
 
   const guestLinks = (
     <>
-      <Button
-        to='/login'
-        component={RouterLink}
-      >
+      <Button color='inherit' onClick={() => history.push('/login')}>
         Login
       </Button>
     </>

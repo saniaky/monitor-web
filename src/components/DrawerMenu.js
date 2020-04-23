@@ -23,6 +23,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { useRouter } from '../hooks/useRouter'
 import { useProjectService } from '../pages/dashboard/ProjectContext'
+import SettingsIcon from '@material-ui/icons/Settings'
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -50,8 +51,9 @@ export default ({ handleToggle }) => {
     { text: 'Components', pathname: 'components', Icon: AppsIcon },
     { text: 'Members', pathname: 'members', Icon: GroupIcon },
     { text: 'Subscribers', pathname: 'subscribers', Icon: MailOutlineIcon },
-    { text: 'Your Page', pathname: 'page', Icon: LanguageIcon },
-    { text: 'Activity log', pathname: 'activity-log', Icon: HistoryIcon }
+    { text: 'Your page', pathname: 'page', Icon: LanguageIcon },
+    { text: 'Activity log', pathname: 'activity-log', Icon: HistoryIcon },
+    { text: 'Project settings', pathname: 'settings', Icon: SettingsIcon }
   ]
 
   const handleProjectClick = (event) => {

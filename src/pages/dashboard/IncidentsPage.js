@@ -7,8 +7,13 @@ import Grid from '@material-ui/core/Grid'
 import Tab from '@material-ui/core/Tab'
 import Button from '@material-ui/core/Button'
 import { CircularProgress } from '@material-ui/core'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import { useRouter } from '../../hooks/useRouter'
+import BugReportIcon from '@material-ui/icons/BugReport'
+import Paper from '@material-ui/core/Paper'
 
 export default () => {
+  const router = useRouter()
   const [incidents, setIncidents] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [value, setValue] = useState('open')
@@ -39,7 +44,16 @@ export default () => {
     <Grid container spacing={3}>
 
       <Grid item xs={12}>
-        <Typography variant='h4'>Incidents</Typography>
+        <Grid container spacing={3}>
+          <Grid item>
+            <Typography variant='h4'>Incidents</Typography>
+          </Grid>
+          <Grid item>
+            <Button onClick={() => router.push('/dashboard/new-incident')}>
+              <AddCircleIcon />&nbsp; Create
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item xs={12}>
@@ -49,14 +63,24 @@ export default () => {
         </Tabs>
       </Grid>
 
-      {!isLoading && incidents.length > 0 && incidents.map((row, idx) => (
-        <Grid item xs={12} key={idx}>
-          <Typography variant='h4'>Title</Typography>
-          <Typography>Investigating</Typography>
-          <Typography>13 days ago (13:42 UTC)</Typography>
-          <Button>Update</Button>
+      <Grid item xs={12} md={6}>
+        <Grid container spacing={2}>
+          {!isLoading && incidents.length > 0 && incidents.map((row, idx) => (
+            <Grid item xs={12} key={idx}>
+              <Paper style={{ padding: '20px' }}>
+                <Grid container justify='space-between' alignItems='center'>
+                  <Grid item>
+                    <Typography variant='h4'><BugReportIcon /> &nbsp; {row.name}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Button variant='outlined'>Update</Button>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+          ))}
         </Grid>
-      ))}
+      </Grid>
 
     </Grid>
   )

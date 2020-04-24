@@ -4,6 +4,7 @@ import { Redirect, Route, useRouteMatch } from 'react-router'
 import PrivateLayout from '../../components/PrivateLayout'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { ProvideProject } from './ProjectContext'
+import CreateIncidentsPage from './CreateIncidentsPage'
 
 const IncidentsPage = lazy(() => import('./IncidentsPage'))
 const MembersPage = lazy(() => import('./MembersPage'))
@@ -23,6 +24,7 @@ export default () => {
         <Suspense fallback={<LinearProgress />}>
           <Switch>
             <Route path={`${url}/incidents`} component={IncidentsPage} />
+            <Route path={`${url}/new-incident`} component={CreateIncidentsPage} />
             <Route path={`${url}/components`} component={ComponentsPage} />
             <Route path={`${url}/members`} component={MembersPage} />
             <Route path={`${url}/subscribers`} component={SubscribersPage} />

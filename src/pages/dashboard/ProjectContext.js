@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import useLocalStorage from '../../hooks/useLocalStorage'
 import api from '../../config/api'
 import { toast } from 'react-toastify'
 
@@ -18,33 +17,31 @@ export function ProvideProject ({ children }) {
   )
 }
 
-const defaultProject = { projectId: null, name: 'Loading...' }
+const defaultProject = { projectId: null, name: '{ Choose a project }' }
 
 function useProvideProject () {
   const [projects, setProjects] = useState(false)
-  const [project, setProject] = useLocalStorage('monitor_project', defaultProject)
-  const [stale, setStale] = useState(true)
+  const [project, setProject] = useState(defaultProject)
+  const [stale, setStale] = useState(false)
 
   useEffect(() => {
-    if (!stale) return
     api.get('/projects')
       .then((res) => {
         setProjects(res.data)
+        setProject(res.data[0])
         setStale(false)
       })
       .catch((err) => {
         toast.error(JSON.stringify(err?.response?.data?.error))
       })
-  }, [stale])
+  }, [])
 
   useEffect(() => {
-    if (!project.projectId && projects.length > 0) {
-      setProject(projects[0])
+    if (stale && projects.length > 0 && project.projectId) {
+      const newVal = projects.find(p => p.projectId === project.projectId)
+      if (newVal) setProject(newVal)
     }
-    if (stale && projects.length > 0) {
-      setProject(projects.find(p => p.projectId === project.projectId))
-    }
-  })
+  }, [project, projects, stale])
 
   const changeProject = (projectId) => {
     const newProject = projects.filter(p => p.projectId === Number(projectId))
@@ -52,8 +49,14 @@ function useProvideProject () {
     else console.error('Project not found.')
   }
 
-  const createProject = () => {
-
+  const createProject = (values) => {
+    return api.post('/projects', values)
+      .then(res => {
+        const newProject = res.data
+        setProject(newProject)
+        setProjects(prevState => prevState.concat(newProject))
+        return newProject
+      })
   }
 
   const refreshProject = () => {

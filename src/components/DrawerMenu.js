@@ -14,12 +14,8 @@ import Typography from '@material-ui/core/Typography'
 import NewProjectDialog from './NewProjectDialog'
 import { useRouteMatch } from 'react-router'
 import ReportProblemIcon from '@material-ui/icons/ReportProblem'
-import AppsIcon from '@material-ui/icons/Apps'
-import GroupIcon from '@material-ui/icons/Group'
 import LanguageIcon from '@material-ui/icons/Language'
-import HistoryIcon from '@material-ui/icons/History'
 import { makeStyles } from '@material-ui/core/styles'
-import MailOutlineIcon from '@material-ui/icons/MailOutline'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { useRouter } from '../hooks/useRouter'
 import { useProjectService } from '../pages/dashboard/ProjectContext'
@@ -48,11 +44,11 @@ export default ({ handleToggle }) => {
 
   const menu = [
     { text: 'Incidents', pathname: 'incidents', Icon: ReportProblemIcon },
-    { text: 'Components', pathname: 'components', Icon: AppsIcon },
-    { text: 'Members', pathname: 'members', Icon: GroupIcon },
-    { text: 'Subscribers', pathname: 'subscribers', Icon: MailOutlineIcon },
+    // { text: 'Components', pathname: 'components', Icon: AppsIcon },
+    // { text: 'Members', pathname: 'members', Icon: GroupIcon },
+    // { text: 'Subscribers', pathname: 'subscribers', Icon: MailOutlineIcon },
     { text: 'Your page', pathname: 'page', Icon: LanguageIcon },
-    { text: 'Activity log', pathname: 'activity-log', Icon: HistoryIcon },
+    // { text: 'Activity log', pathname: 'activity-log', Icon: HistoryIcon },
     { text: 'Project settings', pathname: 'settings', Icon: SettingsIcon }
   ]
 
@@ -97,6 +93,10 @@ export default ({ handleToggle }) => {
       </MenuItem>
       <NewProjectDialog
         open={newProjectOpen}
+        handleSave={() => {
+          projectService.refreshProject()
+          setNewProjectOpen(false)
+        }}
         handleClose={() => setNewProjectOpen(false)}
       />
     </Menu>

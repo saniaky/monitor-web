@@ -11,8 +11,7 @@ const initialValues = {
   firstName: '',
   lastName: '',
   avatarUrl: '',
-  email: '',
-  password: ''
+  email: ''
 }
 
 export default () => {
@@ -29,16 +28,14 @@ export default () => {
   }, [])
 
   const handleSave = (values, { setSubmitting }) => {
-    api.put('/me', {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      avatarUrl: values.avatarUrl
-      // password: '',
-    }).then(() => {
-      toast.success('Profile updated.')
-    }).catch(err => {
-      toast.error(JSON.stringify(err?.response?.data?.error) || 'Cannot update profile for now.')
-    }).finally(() => setSubmitting(false))
+    api.put('/me', values)
+      .then(() => {
+        toast.success('Profile updated.')
+      })
+      .catch(err => {
+        toast.error(JSON.stringify(err?.response?.data?.error) || 'Cannot update profile for now.')
+      })
+      .finally(() => setSubmitting(false))
   }
 
   return (

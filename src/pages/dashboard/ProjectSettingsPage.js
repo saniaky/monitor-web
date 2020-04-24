@@ -33,7 +33,6 @@ export default () => {
                 <Field
                   component={TextField}
                   name='name'
-                  type='text'
                   label='Project name'
                   required
                   variant='outlined'

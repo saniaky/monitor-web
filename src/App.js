@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import DashboardRouter from './pages/dashboard/DashboardRouter'
+import StatusPage from './pages/status-page/StatusPage'
 
 const HomePage = lazy(() => import('./pages/home/HomePage'))
 const PricingPage = lazy(() => import('./pages/home/PricingPage'))
@@ -22,6 +23,7 @@ function App () {
           <PublicRoute path='/signup' exact component={SignupPage} />
           <PublicRoute path='/confirm-email' exact component={ConfirmEmailPage} />
           <PublicRoute path='/forgot-password' exact component={SignupPage} />
+          <PublicRoute path='/status-page/:projectId' exact component={StatusPage} />
           <PrivateRoute path='/dashboard' component={DashboardRouter} />
           <Route component={NotFoundPage} />
         </Switch>

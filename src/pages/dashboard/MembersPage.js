@@ -11,6 +11,8 @@ import TableContainer from '@material-ui/core/TableContainer'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import gravatarUrl from 'gravatar-url'
+import Avatar from '@material-ui/core/Avatar'
 
 export default () => {
   const [members, setMembers] = useState([])
@@ -44,9 +46,9 @@ export default () => {
             <TableHead>
               <TableRow>
                 <TableCell>User ID</TableCell>
+                <TableCell>Avatar</TableCell>
                 <TableCell>First Name</TableCell>
                 <TableCell>Last Name</TableCell>
-                <TableCell>Avatar</TableCell>
                 <TableCell>Role</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
@@ -55,9 +57,14 @@ export default () => {
               {members.map((u) => (
                 <TableRow key={u.userId}>
                   <TableCell>{u.userId}</TableCell>
+                  <TableCell>
+                    <Avatar
+                      alt={u.firstName}
+                      src={u.email ? gravatarUrl(u.email) : 'N/A'}
+                    />
+                  </TableCell>
                   <TableCell>{u.firstName}</TableCell>
                   <TableCell>{u.lastName}</TableCell>
-                  <TableCell>{u.avatarUrl || 'N/A'}</TableCell>
                   <TableCell>{u.role || 'N/A'}</TableCell>
                   <TableCell>-</TableCell>
                 </TableRow>

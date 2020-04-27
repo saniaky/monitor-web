@@ -7,11 +7,13 @@ import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
 import { toast } from 'react-toastify'
 import Container from '@material-ui/core/Container'
+import gravatarUrl from 'gravatar-url'
+import Avatar from '@material-ui/core/Avatar'
+import { CircularProgress } from '@material-ui/core'
 
 const initialValues = {
   firstName: '',
   lastName: '',
-  avatarUrl: '',
   email: ''
 }
 
@@ -21,7 +23,8 @@ export default () => {
   useEffect(() => {
     api.get('/me')
       .then((res) => {
-        setProfile(res.data)
+        const { firstName, lastName, email } = res.data
+        setProfile({ firstName, lastName, email })
       })
       .catch(err => {
         toast.error(err?.response?.data?.error || 'Cannot load user profile.')
@@ -39,62 +42,76 @@ export default () => {
       .finally(() => setSubmitting(false))
   }
 
+  if (!profile.email) return <CircularProgress />
+
+  const getUrl = gravatarUrl(profile.email || '', { size: 200 })
+
   return (
-    <Container maxWidth='sm'>
+    <Container maxWidth='md'>
       <Typography variant='h4' gutterBottom>Profile</Typography>
       <Formik onSubmit={handleSave} initialValues={profile} enableReinitialize>
-        {({ isSubmitting }) => (
-          <Form>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  component={TextField}
-                  autoComplete='fname'
-                  name='firstName'
-                  type='text'
-                  label='First Name'
-                  required
-                  variant='outlined'
-                  fullWidth
-                  autoFocus
-                />
+        {({ isSubmitting }) => {
+          return (
+            <Form>
+              <Grid container spacing={3}>
+                <Grid item>
+                  <Avatar
+                    alt={profile.name}
+                    src={getUrl}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  component={TextField}
-                  autoComplete='lname'
-                  name='lastName'
-                  type='text'
-                  label='Last Name'
-                  required
-                  variant='outlined'
-                  fullWidth
-                />
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    component={TextField}
+                    autoComplete='fname'
+                    name='firstName'
+                    type='text'
+                    label='First Name'
+                    required
+                    variant='outlined'
+                    fullWidth
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    component={TextField}
+                    autoComplete='lname'
+                    name='lastName'
+                    type='text'
+                    label='Last Name'
+                    required
+                    variant='outlined'
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field
+                    component={TextField}
+                    name='email'
+                    type='email'
+                    label='Email Address'
+                    required
+                    variant='outlined'
+                    fullWidth
+                    autoComplete='email'
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    color='primary'
+                  >
+                    Save
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Field
-                  component={TextField}
-                  name='email'
-                  type='email'
-                  label='Email Address'
-                  required
-                  variant='outlined'
-                  fullWidth
-                  autoComplete='email'
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type='submit'
-                  variant='contained'
-                  color='primary'
-                >
-                  Save
-                </Button>
-              </Grid>
-            </Grid>
-          </Form>
-        )}
+            </Form>
+          )
+        }}
       </Formik>
     </Container>
   )

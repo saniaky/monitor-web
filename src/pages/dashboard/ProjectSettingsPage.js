@@ -13,12 +13,29 @@ export default () => {
   const project = projectService.project
 
   const handleSave = (values, { setSubmitting }) => {
-    api.put(`/projects/${project.projectId}`, values).then(() => {
-      toast.success('Updated.')
-      projectService.refreshProject()
-    }).catch(err => {
-      toast.error(JSON.stringify(err?.response?.data?.error) || 'Cannot update for now.')
-    }).finally(() => setSubmitting(false))
+    api.put(`/projects/${project.projectId}`, values)
+      .then(() => {
+        toast.success('Updated.')
+        projectService.refreshProject()
+      })
+      .catch(err => {
+        toast.error(JSON.stringify(err?.response?.data?.error) || 'Cannot update for now.')
+      })
+      .finally(() => setSubmitting(false))
+  }
+
+  const deleteProject = () => {
+    if (window.confirm('Are you sure you want to delete this project?')) {
+      api.delete(`/projects/${project.projectId}`)
+        .then(() => {
+          toast.success('Project deleted..')
+          projectService.refreshProject()
+        })
+        .catch(err => {
+          toast.error(JSON.stringify(err?.response?.data?.error) || 'Cannot delete for now.')
+        })
+        .finally(() => console.log('done'))
+    }
   }
 
   return (
@@ -50,6 +67,15 @@ export default () => {
                 </Button>
               </Grid>
             </Grid>
+
+            <br />
+
+            <Grid container spacing={3}>
+              <Button onClick={deleteProject} color='secondary'>
+                Delete project
+              </Button>
+            </Grid>
+
           </Form>
         )}
       </Formik>

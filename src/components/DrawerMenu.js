@@ -20,6 +20,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { useRouter } from '../hooks/useRouter'
 import { useProjectService } from '../pages/dashboard/ProjectContext'
 import SettingsIcon from '@material-ui/icons/Settings'
+import GroupIcon from '@material-ui/icons/Group'
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -43,13 +44,13 @@ export default ({ handleToggle }) => {
   const projects = projectService.projects
 
   const menu = [
-    { text: 'Incidents', pathname: 'incidents', Icon: ReportProblemIcon },
+    { text: 'Incidents', pathname: `${path}/incidents`, Icon: ReportProblemIcon },
     // { text: 'Components', pathname: 'components', Icon: AppsIcon },
-    // { text: 'Members', pathname: 'members', Icon: GroupIcon },
+    { text: 'Members', pathname: 'members', Icon: GroupIcon },
     // { text: 'Subscribers', pathname: 'subscribers', Icon: MailOutlineIcon },
-    { text: 'Your page', pathname: 'page', Icon: LanguageIcon },
+    { text: 'Your page', pathname: `/status-page/${currentProject.projectId}`, Icon: LanguageIcon, newTab: true },
     // { text: 'Activity log', pathname: 'activity-log', Icon: HistoryIcon },
-    { text: 'Project settings', pathname: 'settings', Icon: SettingsIcon }
+    { text: 'Project settings', pathname: `${path}/settings`, Icon: SettingsIcon }
   ]
 
   const handleProjectClick = (event) => {
@@ -123,7 +124,7 @@ export default ({ handleToggle }) => {
           <ListItem
             key={pathname}
             button
-            onClick={() => router.push(`${path}/${pathname}`)}
+            onClick={() => router.push(`${pathname}`)}
             selected={pathname === router.pathname}
           >
             <ListItemIcon><Icon /></ListItemIcon>

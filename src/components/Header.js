@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -7,10 +7,8 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import AccountButton from './AccountButton'
 import { useHistory } from 'react-router'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
 const useStyles = makeStyles((theme) => ({
   '@global': {
@@ -45,50 +43,12 @@ export default () => {
   const classes = useStyles()
   const auth = useAuth()
   const history = useHistory()
-  const [anchorEl, setAnchorEl] = useState(null)
 
   const guestLinks = (
     <>
       <Button color='inherit' onClick={() => history.push('/login')}>
         Login
       </Button>
-    </>
-  )
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const dashboard = () => {
-    history.push('/dashboard')
-    handleClose()
-  }
-
-  const logout = () => {
-    history.push('/')
-    auth.logout()
-    handleClose()
-  }
-
-  const accountButton = (
-    <>
-      <Button onClick={handleClick} color='inherit'>
-        <AccountCircleIcon /> &nbsp; Account
-      </Button>
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={dashboard}>Dashboard</MenuItem>
-        <MenuItem onClick={logout}>Logout</MenuItem>
-      </Menu>
     </>
   )
 
@@ -103,7 +63,7 @@ export default () => {
             Pricing
           </Link>
         </nav>
-        {auth.user ? accountButton : guestLinks}
+        {auth.user ? <AccountButton /> : guestLinks}
       </Toolbar>
     </AppBar>
   )

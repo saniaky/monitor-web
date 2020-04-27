@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import { TextField } from 'formik-material-ui'
 import Button from '@material-ui/core/Button'
 import { toast } from 'react-toastify'
+import Container from '@material-ui/core/Container'
 
 const initialValues = {
   firstName: '',
@@ -39,12 +40,12 @@ export default () => {
   }
 
   return (
-    <>
+    <Container maxWidth='sm'>
       <Typography variant='h4' gutterBottom>Profile</Typography>
       <Formik onSubmit={handleSave} initialValues={profile} enableReinitialize>
         {({ isSubmitting }) => (
           <Form>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
                 <Field
                   component={TextField}
@@ -82,17 +83,19 @@ export default () => {
                   autoComplete='email'
                 />
               </Grid>
+              <Grid item xs={12}>
+                <Button
+                  type='submit'
+                  variant='contained'
+                  color='primary'
+                >
+                  Save
+                </Button>
+              </Grid>
             </Grid>
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-            >
-              Save
-            </Button>
           </Form>
         )}
       </Formik>
-    </>
+    </Container>
   )
 }

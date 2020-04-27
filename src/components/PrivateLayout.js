@@ -8,10 +8,8 @@ import IconButton from '@material-ui/core/IconButton'
 import clsx from 'clsx'
 import Container from '@material-ui/core/Container'
 import MyDrawer from './MyDrawer'
-import { useHistory } from 'react-router'
-import Button from '@material-ui/core/Button'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { useProjectService } from '../pages/dashboard/ProjectContext'
+import AccountButton from './AccountButton'
 
 const drawerWidth = 240
 
@@ -58,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default ({ children }) => {
   const classes = useStyles()
-  const history = useHistory()
   const [drawerOpen, setDrawerOpen] = useState(true)
 
   const handleDrawerToggle = () => {
@@ -85,9 +82,7 @@ export default ({ children }) => {
           <Typography variant='h6' noWrap style={{ flexGrow: 1 }}>
             Monitor
           </Typography>
-          <Button color='inherit' onClick={() => history.push('/dashboard/profile')}>
-            <AccountCircleIcon /> &nbsp; Account
-          </Button>
+          <AccountButton />
         </Toolbar>
       </AppBar>
 

@@ -13,10 +13,10 @@ import { toast } from 'react-toastify'
 import { useRouter } from '../../hooks/useRouter'
 
 const initialValues = {
-  name: 'Test name',
-  components: '',
+  name: 'Monitor database incident',
+  components: 'website',
   status: 'investigating',
-  message: 'Provide details on this'
+  message: 'Yesterday we had a serious incident with one of our databases. We lost six hours of database data.'
 }
 
 export default () => {

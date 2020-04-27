@@ -28,13 +28,14 @@ function useProvideProject () {
     api.get('/projects')
       .then((res) => {
         setProjects(res.data)
-        setProject(res.data[0])
         setStale(false)
+        const oldProject = res.data.find(p => p.projectId === project.projectId)
+        setProject(oldProject || res.data[0])
       })
       .catch((err) => {
         toast.error(JSON.stringify(err?.response?.data?.error))
       })
-  }, [])
+  }, [stale, project.projectId])
 
   useEffect(() => {
     if (stale && projects.length > 0 && project.projectId) {
@@ -44,7 +45,7 @@ function useProvideProject () {
   }, [project, projects, stale])
 
   const changeProject = (projectId) => {
-    const newProject = projects.filter(p => p.projectId === Number(projectId))
+    const newProject = projects.find(p => p.projectId === Number(projectId))
     if (newProject) setProject(newProject)
     else console.error('Project not found.')
   }

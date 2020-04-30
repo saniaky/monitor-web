@@ -109,11 +109,18 @@ export default () => {
                     <Typography variant='h4'><BugReportIcon /> &nbsp; {row.name}</Typography>
                   </Grid>
                   <Grid item>
-                    <Button variant='outlined'>Update</Button>
-                    &nbsp;
-                    <Button variant='outlined' color='secondary' onClick={() => close(row)}>
-                      Close
+                    <Button
+                      variant='outlined'
+                      onClick={() => router.push(`/dashboard/incidents/${row.incidentId}`)}
+                    >
+                      Update
                     </Button>
+                    &nbsp;
+                    {row.status === 'OPEN' && (
+                      <Button variant='outlined' color='secondary' onClick={() => close(row)}>
+                        Close
+                      </Button>
+                    )}
                   </Grid>
                 </Grid>
               </Paper>

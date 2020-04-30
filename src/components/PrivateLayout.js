@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container'
 import MyDrawer from './MyDrawer'
 import { useProjectService } from '../pages/dashboard/ProjectContext'
 import AccountButton from './AccountButton'
+import { CircularProgress } from '@material-ui/core'
 
 const drawerWidth = 240
 
@@ -64,8 +65,8 @@ export default ({ children }) => {
 
   // If projectService is null (still fetching data)
   const projectService = useProjectService()
-  if (projectService.projects === false) {
-    return <div>Loading...</div>
+  if (projectService.projects === false || !projectService.project.projectId) {
+    return <CircularProgress />
   }
 
   return (

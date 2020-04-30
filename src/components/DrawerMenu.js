@@ -46,7 +46,7 @@ export default ({ handleToggle }) => {
   const menu = [
     { text: 'Incidents', pathname: `${path}/incidents`, Icon: ReportProblemIcon },
     // { text: 'Components', pathname: 'components', Icon: AppsIcon },
-    { text: 'Members', pathname: 'members', Icon: GroupIcon },
+    { text: 'Members', pathname: `${path}/members`, Icon: GroupIcon },
     // { text: 'Subscribers', pathname: 'subscribers', Icon: MailOutlineIcon },
     { text: 'Your page', pathname: `/status-page/${currentProject.projectId}`, Icon: LanguageIcon, newTab: true },
     // { text: 'Activity log', pathname: 'activity-log', Icon: HistoryIcon },

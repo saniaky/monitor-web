@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import api from '../../config/api'
 import { CircularProgress } from '@material-ui/core'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import Moment from 'react-moment'
 
 export default () => {
   const params = useParams()
   const [loading, setLoading] = useState(true)
   const [project, setProject] = useState()
   const [incidents, setIncidents] = useState([])
-  const [error, setError] = useState()
+  const [error, setError] = useState('')
 
   useEffect(() => {
     api.get(`/projects/${params.projectId}`)
@@ -32,7 +32,7 @@ export default () => {
         setIncidents(res.data)
       })
       .catch(() => {
-        setError('Error')
+        setError('Cant load incidents')
       })
       .finally(() => {
 
@@ -60,18 +60,49 @@ export default () => {
 
         <Grid item xs={12}>
           <Typography variant='h4'>
-            Past Incidents
+            Incidents
           </Typography>
         </Grid>
 
         <Grid item xs={12}>
-          <List>
+          <Grid container spacing={5}>
             {incidents.map((row) => (
-              <ListItem key={row.incidentId}>
-                {row.status} {row.name} {row.components}
-              </ListItem>
+              <Grid item xs={12} key={row.incidentId}>
+                <Paper style={{ padding: '20px' }}>
+
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Typography variant='h5'>{row.status} - {row.name}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography><strong>Components</strong>: {row.components}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography><strong>Updates:</strong></Typography>
+                      <br />
+                    </Grid>
+                    {row.updates.map(update => (
+                      <>
+                        <Grid item xs={12}>
+                          <Typography>
+                            <Moment date={update.created_at} />
+                          </Typography>
+                          <Typography>
+                            {update.status}
+                          </Typography>
+                          <Typography>
+                            {update.message}
+                          </Typography>
+                        </Grid>
+                        <hr />
+                      </>
+                    ))}
+                  </Grid>
+
+                </Paper>
+              </Grid>
             ))}
-          </List>
+          </Grid>
         </Grid>
       </Grid>
     </Container>

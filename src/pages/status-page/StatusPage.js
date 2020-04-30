@@ -42,7 +42,7 @@ export default () => {
   if (loading) return <CircularProgress />
 
   return (
-    <Container maxWidth='md'>
+    <Container>
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <Typography variant='h2'>

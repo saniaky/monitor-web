@@ -66,7 +66,7 @@ export default () => {
       <Grid item xs={12}>
         <Typography variant='h4'>Hooray! No incidents!</Typography>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} md={8}>
         <img
           src={require('../../assets/undraw_having_fun_iais.svg')}
           alt='No incidents'
@@ -99,7 +99,7 @@ export default () => {
         </Tabs>
       </Grid>
 
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12}>
         <Grid container spacing={2}>
           {!isLoading && incidents.length > 0 && incidents.map((row, idx) => (
             <Grid item xs={12} key={idx}>

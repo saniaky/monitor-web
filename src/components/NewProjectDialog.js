@@ -44,7 +44,7 @@ export default ({ open, handleSave, handleClose }) => {
                 Please enter your new project name.
               </DialogContentText>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <Field
                     component={FormikTextField}
                     name='name'
